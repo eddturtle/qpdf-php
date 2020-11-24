@@ -1,2 +1,3 @@
-# qpdf-php
-PHP wrapper for the qpdf library
+# Qpdf PHP
+
+PHP wrapper for the qpdf library.
