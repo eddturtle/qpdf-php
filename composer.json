@@ -1,7 +1,7 @@
 {
     "name": "eddturtle/qpdf-php",
     "description": "PHP wrapper for the qpdf library",
-    "type": "composer-plugin",
+    "type": "library",
     "license": "MIT",
     "authors": [
         {
