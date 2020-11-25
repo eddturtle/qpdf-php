@@ -15,15 +15,19 @@ class Pdf
     protected $error;
     protected $output;
 
-    protected $options = [
+    protected $defaults = [
         'command' => 'qpdf',
     ];
+    protected $options = [];
 
     protected $pages = [];
 
     public function __construct($file = null, $options = [])
     {
-        $this->options += $options;
+        $options += $this->defaults;
+        $this->setOptions($options);
+
+        // Build command for 1st time
         $this->getCommand();
     }
 
@@ -41,7 +45,6 @@ class Pdf
         if ($command->getExecuted()) {
             return false;
         }
-        //var_dump($command->getExecCommand());
         if (!$command->execute()) {
             $this->error = $command->getError();
         }
@@ -52,6 +55,19 @@ class Pdf
     public function getError()
     {
         return $this->error;
+    }
+
+    protected function setOptions($options)
+    {
+        if (!empty($options['command']) && file_exists($options['command'])) {
+            $options['command'] = realpath($options['command']);
+        }
+        $this->options = $options;
+    }
+
+    protected function getOptions()
+    {
+        return $this->options;
     }
 
     public function getVersion()
