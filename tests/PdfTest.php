@@ -29,4 +29,40 @@ class PdfTest extends TestCase
         $this->assertEmpty($pdf->getError());
     }
 
+    public function testSplit()
+    {
+        $pdf = new Pdf();
+        $pdf->addPage(__DIR__ . "/files/TestPdfTwoPage.pdf");
+        $pdf->split(__DIR__."/output/test-split.pdf");
+        $this->assertEmpty($pdf->getError());
+    }
+
+    public function testRotate()
+    {
+        $pdf = new Pdf();
+        $pdf->addPage(__DIR__ . "/files/TestPdfTwoPage.pdf");
+        $pdf->rotate(__DIR__ . "/output/rotated.pdf", "+90", "1");
+        $this->assertEmpty($pdf->getError());
+    }
+
+    public function testGetPageCount()
+    {
+        $pdf = new Pdf();
+        $pdf->addPage(__DIR__ . "/files/TestPdfTwoPage.pdf");
+        $pdf->addPage(__DIR__ . "/files/TestPdf.pdf");
+        $count = $pdf->getPageCount();
+        $this->assertEmpty($pdf->getError());
+        $this->assertEquals(3, $count);
+    }
+
+    public function testEnsureErrorWithMultiFileRotate()
+    {
+        $pdf = new Pdf();
+        $pdf->addPage(__DIR__ . "/files/TestPdfTwoPage.pdf");
+        $pdf->addPage(__DIR__ . "/files/TestPdf.pdf");
+        $this->expectExceptionMessage('Error! Currently unable to rotate when more than one PDF file is specified.');
+        $pdf->rotate(__DIR__ . "/output/rotated.pdf", "+90", "1");
+
+    }
+
 }
