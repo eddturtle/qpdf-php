@@ -10,8 +10,6 @@ class PdfTest extends TestCase
 
     public function testGetVersion()
     {
-        echo $this->getCmdLocation();
-
         $pdf = new Pdf();
         $version = $pdf->getVersion();
 
