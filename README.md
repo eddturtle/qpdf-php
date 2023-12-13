@@ -1,5 +1,8 @@
 # Qpdf PHP
 
+![phpunit](https://github.com/eddturtle/qpdf-php/actions/workflows/phpunit.yml/badge.svg)
+![phpstan](https://github.com/eddturtle/qpdf-php/actions/workflows/phpstan.yml/badge.svg)
+
 PHP wrapper for the qpdf library.
 
 Currently requires PHP 7.4+ and the `qpfd` library installed (`sudo apt install qpdf`).
