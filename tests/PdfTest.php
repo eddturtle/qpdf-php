@@ -23,33 +23,44 @@ class PdfTest extends TestCase
     public function testMerge()
     {
         $pdf = new Pdf();
+
         $pdf->addPage(__DIR__ . "/files/TestPdf.pdf");
         $pdf->addPage(__DIR__ . "/files/TestPdf2.pdf");
-        $pdf->merge(__DIR__ . "/output/test-merge.pdf");
+
+        $result = $pdf->merge(__DIR__ . "/output/test-merge.pdf");
+        $this->assertTrue($result);
         $this->assertEmpty($pdf->getError());
     }
 
     public function testSplit()
     {
         $pdf = new Pdf();
+
         $pdf->addPage(__DIR__ . "/files/TestPdfTwoPage.pdf");
-        $pdf->split(__DIR__."/output/test-split.pdf");
+
+        $result = $pdf->split(__DIR__."/output/test-split.pdf");
+        $this->assertTrue($result);
         $this->assertEmpty($pdf->getError());
     }
 
     public function testRotate()
     {
         $pdf = new Pdf();
+
         $pdf->addPage(__DIR__ . "/files/TestPdfTwoPage.pdf");
-        $pdf->rotate(__DIR__ . "/output/rotated.pdf", "+90", "1");
+
+        $result = $pdf->rotate(__DIR__ . "/output/rotated.pdf", "+90", "1");
+        $this->assertTrue($result);
         $this->assertEmpty($pdf->getError());
     }
 
     public function testGetPageCount()
     {
         $pdf = new Pdf();
+
         $pdf->addPage(__DIR__ . "/files/TestPdfTwoPage.pdf");
         $pdf->addPage(__DIR__ . "/files/TestPdf.pdf");
+
         $count = $pdf->getPageCount();
         $this->assertEmpty($pdf->getError());
         $this->assertEquals(3, $count);

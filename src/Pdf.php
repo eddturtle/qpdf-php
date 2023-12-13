@@ -115,6 +115,14 @@ class Pdf
         return $this->pages;
     }
 
+    private function checkFolderIfExists($target)
+    {
+        $folder = dirname($target);
+        if (!empty($folder) && $folder !== '.' && !file_exists($folder)) {
+            mkdir($folder);
+        }
+    }
+
     /**
      * Merge all added pages in the object into a single output file.
      *
@@ -124,6 +132,11 @@ class Pdf
      */
     public function merge($target)
     {
+        if (empty($target)) {
+            return false;
+        }
+        $this->checkFolderIfExists($target);
+
         $cmd = $this->getCommand();
         $cmd->addArg('--empty', null, false);
         $cmd->addArg('--pages', $this->pages);
@@ -147,6 +160,11 @@ class Pdf
         if(count($this->pages) > 1) {
             throw new \Exception("Error! Currently unable to split when more than one PDF file is specified.");
         }
+
+        if (empty($target)) {
+            return false;
+        }
+        $this->checkFolderIfExists($target);
 
         $cmd = $this->getCommand();
         $cmd->addArg('--split-pages=', $pagesPerGroup, false);
@@ -179,6 +197,11 @@ class Pdf
         if(count($this->pages) > 1) {
             throw new \Exception("Error! Currently unable to rotate when more than one PDF file is specified.");
         }
+
+        if (empty($target)) {
+            return false;
+        }
+        $this->checkFolderIfExists($target);
 
         $cmd = $this->getCommand();
         $cmd->addArg('--rotate=', $rotationCmd, false);
