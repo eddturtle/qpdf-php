@@ -8,5 +8,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
       - uses: php-actions/composer@v6 # or alternative dependency management
-      - uses: php-actions/phpunit@v3
+
+      - name: Install QPDF & Run PHPUnit
+        run: |
+          sudo apt install -y qpdf
+          vendor/bin/phpunit --color=always
