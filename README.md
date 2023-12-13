@@ -2,6 +2,8 @@
 
 PHP wrapper for the qpdf library.
 
+Currently requires PHP 7.4+ and the `qpfd` library installed (`sudo apt install qpdf`).
+
 Basic Examples:
 
 ### Merge
